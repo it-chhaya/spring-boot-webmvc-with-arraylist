@@ -7,8 +7,15 @@ import java.util.List;
 public interface ArticleRepository {
 
     boolean insert(Article article);
+
     List<Article> select();
 
-    // selectById, deleteById, updateById
+    void deleteById(String id);
+
+    Article selectById(String id);
+
+    void updateById(Article newArticle);
+
+    List<Article> searchByTitle(String title);
 
 }
