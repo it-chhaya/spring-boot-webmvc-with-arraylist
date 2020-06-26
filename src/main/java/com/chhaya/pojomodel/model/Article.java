@@ -1,11 +1,19 @@
 package com.chhaya.pojomodel.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Article implements Serializable {
 
+    @NotNull
     private String id;
+
+    @NotNull
+    @Size(min = 5, max = 50)
     private String title;
+    
+    @NotNull
     private String details;
 
     public Article() {}

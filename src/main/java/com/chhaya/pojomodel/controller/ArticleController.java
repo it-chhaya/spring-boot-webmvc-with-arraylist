@@ -5,8 +5,10 @@ import com.chhaya.pojomodel.service.impl.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +31,10 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/add")
-    public String addArticle(@ModelAttribute Article article) {
+    public String addArticle(@Valid @ModelAttribute Article article,
+                             BindingResult result) {
+
+        System.out.println(result);
 
         article.setId(UUID.randomUUID().toString());
         articleService.insert(article);
