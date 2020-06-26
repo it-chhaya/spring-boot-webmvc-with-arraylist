@@ -10,12 +10,12 @@ public interface ArticleRepository {
 
     List<Article> select();
 
+    void deleteById(String id);
+
     Article selectById(String id);
 
     void updateById(Article newArticle);
 
     List<Article> searchByTitle(String title);
-
-    void deleteById(String id);
 
 }

@@ -3,6 +3,7 @@ package com.chhaya.pojomodel.repository.impl;
 import com.chhaya.pojomodel.model.Article;
 import com.chhaya.pojomodel.repository.ArticleRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,16 +17,27 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
     private List<Article> data;
 
-    public ArticleRepositoryImpl() {
+    public void init() {
         data = new ArrayList<>();
         data.add(new Article(UUID.randomUUID().toString(), "Spring", "Java Framework"));
         data.add(new Article(UUID.randomUUID().toString(), "Java", "Programming"));
         data.add(new Article(UUID.randomUUID().toString(), "PostgreSQL", "Database Server"));
     }
 
+
     @Override
     public List<Article> select() {
         return data;
+    }
+
+    @Override
+    public void deleteById(String id) {
+        for (Article article : data) {
+            if (article.getId().equals(id)) {
+                data.remove(article);
+                return;
+            }
+        }
     }
 
     @Override
@@ -58,15 +70,5 @@ public class ArticleRepositoryImpl implements ArticleRepository {
         return data.stream()
                 .filter(article -> article.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteById(String id) {
-        for (Article article : data) {
-            if (article.getId().equals(id)) {
-                data.remove(article);
-                return;
-            }
-        }
     }
 }

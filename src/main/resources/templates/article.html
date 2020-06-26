@@ -17,14 +17,16 @@
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <a class="navbar-brand" href="#">Article Management System</a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/articles/add}">Add Article <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" th:href="@{/articles/add}">Add Article <span
+                                    class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/contact_us}">Contact Us</a>
@@ -33,14 +35,9 @@
                             <a class="nav-link" th:href="@{/about_us}">About Us</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0"
-                          method="get" th:action="@{/articles/search}">
-                        <input class="form-control mr-sm-2"
-                               type="search"
-                               placeholder="Search"
-                               aria-label="Search" name="title">
-                        <button class="btn btn-outline-success my-2 my-sm-0"
-                                type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/articles/search}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="title">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
             </nav>
@@ -50,31 +47,32 @@
         <div class="col-md-12">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">TITLE</th>
-                        <th scope="col">DETAILS</th>
-                        <th scope="col">ACTIONS</th>
-                    </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">TITLE</th>
+                    <th scope="col">DETAILS</th>
+                    <th scope="col">ACTIONS</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="article : ${articles}">
-                        <td class="id" th:text="${article.getId()}">ID DATA</td>
-                        <td class="title" th:text="${article.getTitle()}">TITLE DATA</td>
-                        <td class="details" th:text="${article.getDetails()}">DETAIL DATA</td>
-                        <td>
-                            <button class="btn btn-danger btnDelete"
-                                    data-toggle="modal"
-                                    data-target="#staticBackdrop">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <a class="btn btn-primary"
-                               th:href="@{/articles/update/{id}(id=${article.getId()})}"
-                               role="button">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr th:each="article : ${articles}">
+                    <td class="articleId" th:text="${article.getId()}">ID DATA</td>
+                    <td class="articleTitle" th:text="${article.getTitle()}">TITLE DATA</td>
+                    <td class="articleDetails" th:text="${article.getDetails()}">DETAIL DATA</td>
+                    <td>
+                        <button class="btn btn-danger btnDelete"
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#staticBackdrop">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <a class="btn btn-primary"
+                           th:href="@{/articles/update/{id}(id=${article.getId()})}"
+                           role="button">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -82,7 +80,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -95,8 +94,10 @@
                 Are you sure to delete this record?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a type="button" class="btn btn-danger btnConfirmDelete">Delete</a>
+                <form id="frmDelete" action="" method="post">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger btnDeleteWithConfirm">Delete</button>
+                </form>
             </div>
         </div>
     </div>
@@ -104,18 +105,16 @@
 
 <script>
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $('.btnDelete').on('click', function(e) {
+        $('.btnDelete').on('click', function (e) {
             e.preventDefault();
-
-            var id = $(this).parent().siblings('td.id').text();
-
-            $('.btnConfirmDelete').attr('href', '/articles/delete/' + id);
-
+            var id = $(this).parent().siblings('td.articleId').text();
+            console.log(id);
+            $('#frmDelete').attr('action', '/articles/delete/' + id)
         })
 
-    });
+    })
 
 </script>
 

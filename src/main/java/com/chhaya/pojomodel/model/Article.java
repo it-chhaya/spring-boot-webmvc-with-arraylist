@@ -16,7 +16,8 @@ public class Article implements Serializable {
     @NotNull
     private String details;
 
-    public Article() {}
+    public Article() {
+    }
 
     public Article(String id, String title, String details) {
         this.id = id;

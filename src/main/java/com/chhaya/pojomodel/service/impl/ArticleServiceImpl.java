@@ -17,11 +17,17 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     public ArticleServiceImpl(ArticleRepositoryImpl articleRepository) {
         this.articleRepository = articleRepository;
+        this.articleRepository.init();
     }
 
     @Override
     public List<Article> select() {
         return articleRepository.select();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        articleRepository.deleteById(id);
     }
 
     @Override
@@ -41,17 +47,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateById(Article newArticle) {
-        articleRepository.updateById(newArticle);
+    public void updateById(Article article) {
+        articleRepository.updateById(article);
     }
 
     @Override
     public List<Article> searchByTitle(String title) {
         return articleRepository.searchByTitle(title);
-    }
-
-    @Override
-    public void deleteById(String id) {
-        articleRepository.deleteById(id);
     }
 }
