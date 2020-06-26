@@ -1,19 +1,18 @@
 package com.chhaya.pojomodel.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Article implements Serializable {
 
-    @NotNull
     private String id;
 
-    @NotNull
-    @Size(min = 5, max = 50)
+    @NotBlank()
+    @Size(min = 5, max = 20, message = "Title must be between 5 to 20 characters")
     private String title;
-    
-    @NotNull
+
+    @NotBlank
     private String details;
 
     public Article() {

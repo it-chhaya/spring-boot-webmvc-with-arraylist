@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+
+<button id="btnGet">Get Data</button>
+<h1 id="data">Data</h1>
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#btnGet').on('click', function (e) {
+            e.preventDefault()
+            selectArticles()
+        })
+
+    })
+
+    function selectArticles() {
+        $.ajax({
+            url:'/api/articles',
+            method:'GET',
+            success: function (response) {
+                $('#data').text(response[0].title)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
+</script>
+
+
+</body>
+</html>
