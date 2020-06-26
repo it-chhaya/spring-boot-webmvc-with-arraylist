@@ -21,16 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> select() {
-
-        List<Article> dgbArticles = new ArrayList<>();
-
-        // My Logic
-        for (Article article : articleRepository.select()) {
-            article.setTitle("DGB-" + article.getTitle());
-            dgbArticles.add(article);
-        }
-
-        return dgbArticles;
+        return articleRepository.select();
     }
 
     @Override
@@ -44,4 +35,23 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.insert(article) ? article : null;
     }
 
+    @Override
+    public Article selectById(String id) {
+        return articleRepository.selectById(id);
+    }
+
+    @Override
+    public void updateById(Article newArticle) {
+        articleRepository.updateById(newArticle);
+    }
+
+    @Override
+    public List<Article> searchByTitle(String title) {
+        return articleRepository.searchByTitle(title);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        articleRepository.deleteById(id);
+    }
 }
