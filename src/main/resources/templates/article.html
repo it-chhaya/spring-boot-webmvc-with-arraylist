@@ -30,7 +30,7 @@
                     <a class="navbar-brand f-km" th:text="#{home.title-header}">Title Heading</a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/articles/add}">Add Article <span
+                            <a class="nav-link" th:href="@{/ui/articles/add}">Add Article <span
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
@@ -70,27 +70,41 @@
                     <th scope="col">ACTIONS</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="article : ${articles}">
-                    <td class="articleId" th:text="${article.getId()}">ID DATA</td>
-                    <td class="articleTitle" th:text="${article.getTitle()}">TITLE DATA</td>
-                    <td class="articleDetails" th:text="${article.getDetails()}">DETAIL DATA</td>
-                    <td>
-                        <button class="btn btn-danger btnDelete"
-                                type="button"
-                                data-toggle="modal"
-                                data-target="#staticBackdrop">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <a class="btn btn-primary"
-                           th:href="@{/articles/update/{id}(id=${article.getId()})}"
-                           role="button">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
-                </tr>
+                <tbody class="tbody-one">
+                    <!--
+                        Render Result
+                     -->
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="articleTitle">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Details:</label>
+                        <textarea class="form-control" id="articleDetails"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btnSaveUpdate">Save</button>
+            </div>
         </div>
     </div>
 </div>
@@ -112,27 +126,14 @@
             <div class="modal-footer">
                 <form id="frmDelete" action="" method="post">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger btnDeleteWithConfirm">Delete</button>
+                    <button type="button" class="btn btn-danger btnDeleteWithConfirm">Delete</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-
-    $(document).ready(function () {
-
-        $('.btnDelete').on('click', function (e) {
-            e.preventDefault();
-            var id = $(this).parent().siblings('td.articleId').text();
-            console.log(id);
-            $('#frmDelete').attr('action', '/articles/delete/' + id)
-        })
-
-    })
-
-</script>
+<script src="/js/article.js"></script>
 
 </body>
 </html>

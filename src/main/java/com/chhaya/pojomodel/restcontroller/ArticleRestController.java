@@ -26,6 +26,9 @@ public class ArticleRestController {
 
     @PostMapping
     public Article insertArticle(@RequestBody Article article) {
+
+        System.out.println(article);
+
         article.setId(UUID.randomUUID().toString());
 
         return articleService.insert(article);
